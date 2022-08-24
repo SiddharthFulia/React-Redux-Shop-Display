@@ -25,8 +25,9 @@ function Productdetails() {
     dispatch(selectedproducts(response.data));
   }
   useEffect(() => {
-    if(productid && productid!=="")
+    if(productid && productid!==""){
     fetchdetails();
+    }
     //This is required as we can remove the previous loaded component
     return ()=>{
       dispatch(removeselectedproducts());

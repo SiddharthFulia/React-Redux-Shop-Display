@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import {useParams} from 'react-router-dom';
-import axios from 'axios';
 import { useSelector,useDispatch } from 'react-redux';
-import { selectedproducts,removeselectedproducts } from '../redux/action/ProductAction';
+import { removeselectedproducts,fetchdetails } from '../redux/action/ProductAction';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -15,18 +14,18 @@ function Productdetails() {
   const product=useSelector((state)=>state.product);
   const {image,title,price,category,description}=product;
   const dispatch=useDispatch();
-  const fetchdetails=async()=>{
-    const response=await axios
-    .get(`https://fakestoreapi.com/products/${productid}`)
-    .catch((err)=>{
-      console.log("Error in productdetails page",err)
-    })
-    console.log(response.data);
-    dispatch(selectedproducts(response.data));
-  }
+  // const fetchdetails=async()=>{
+  //   const response=await axios
+  //   .get(`https://fakestoreapi.com/products/${productid}`)
+  //   .catch((err)=>{
+  //     console.log("Error in productdetails page",err)
+  //   })
+  //   console.log(response.data);
+  //   dispatch(selectedproducts(response.data));
+  // }
   useEffect(() => {
     if(productid && productid!==""){
-    fetchdetails();
+    dispatch(fetchdetails(productid));
     }
     //This is required as we can remove the previous loaded component
     return ()=>{
